@@ -8,14 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    init() {
+        UITabBar.appearance().unselectedItemTintColor = .white
+        UITabBar.appearance().backgroundColor = .black
+    }
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        TabView{
+            PlusView()
+                .modifier(CustomTextFieldStyle())
+                .tabItem{
+                    Label("Plus", systemImage: "plus.circle")
+                }
+            MinusView()
+                .modifier(CustomTextFieldStyle())
+                .tabItem{
+                    Label("Minus", systemImage: "minus.circle")
+                }
         }
-        .padding()
+    }
+}
+
+struct CustomTextFieldStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.title)
+            .keyboardType(.numberPad)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
     }
 }
 
